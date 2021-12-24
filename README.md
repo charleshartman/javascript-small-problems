@@ -1,2 +1,2 @@
 # javascript-small-problems
-### launchSchool, codewars, leetcode et al
+### A number of coding problem solutions in JavaScript.
