@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mail Count</title>
+</head>
+<body>
+  <script src="email_data_v2.js"></script>
+  <script>
+  function mailCount(emailData) {
+    let emails = emailData.split(/##\|\|##/g);
+    let count = emails.length;
+    let emailDates = emails.map(email => email.split(/#\/#/g)[2]);
+
+    console.log(`Count of Email: ${count}`);
+    console.log(`Date Range: ${displayableDateRange(emailDates)}`);
+  }
+  
+  function displayableDateRange(dates) {
+    let dateObjects = getDateObjects(dates);
+    dateObjects.sort((a, b) => a.valueOf() - b.valueOf());
+    return dateObjects[0].toDateString() + '-' + dateObjects[dateObjects.length - 1].toDateString();
+  }
+
+  function getDateObjects(dates) {
+    return dates.map(date => {
+      let dateElements = date.split(' ')[1].split('-');
+      let month = parseInt(dateElements[0], 10) - 1; // month index for Date object is one less than calendar
+      let day = parseInt(dateElements[1], 10);
+      let year = parseInt(dateElements[2], 10);
+      return new Date(year, month, day);
+    });
+  }
+
+  mailCount(emailData);
+  </script>
+</body>
+</html>
+
+<!--
+algorithm:
+  - part 1:
+    - break data into individual email messages:
+      - match(/##\|\|##/), assign to (emails)
+      - count of email is emails.length
+  - part 2:
+
+-->
